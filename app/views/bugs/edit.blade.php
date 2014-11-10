@@ -37,7 +37,7 @@
 				<br>
 				
 			@endforeach
-			<input type="text" value='[[$lls]]' id='language' name='language'>
+			<input type="hidden" value='[[$lls]]' id='language' name='language'>
 		</div>
 	</div>
 	<div class="row">
