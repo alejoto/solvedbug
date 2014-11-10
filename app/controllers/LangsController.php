@@ -10,7 +10,14 @@ class LangsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$langs=Llang::all();
+		return View::make(
+			'langs.index',
+			compact(
+				'langs'
+				)
+			)
+		;
 	}
 
 	/**
@@ -21,7 +28,7 @@ class LangsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('langs.create');
 	}
 
 	/**
@@ -32,7 +39,15 @@ class LangsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		if (trim(Input::get('name'))!='') {
+			$l=new Llang;
+			$l->name=Input::get('name');
+			$l->description=Input::get('description');
+			$l->save();
+			return Redirect::to('lang');
+		} else {
+			return View::make('langs.create');
+		}
 	}
 
 	/**

@@ -13,6 +13,19 @@ class BugsController extends \BaseController {
 		//
 	}
 
+	public function buglist() {
+		$bugs=Bug::all();
+		$languages=Llang::all();
+		return View::make(
+			'buglist',
+			compact(
+				'bugs',
+				'languages'
+				)
+			)
+		;
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /bugs/create
@@ -32,7 +45,27 @@ class BugsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$description=Input::get('description');
+		$language=Input::get('language');
+		$solution=Input::get('solution');
+
+		$b=new Bug;
+		$b->description=$description;
+		$b->solution=$solution;
+		//$b->llangs->attach($language);
+		$b->save();
+
+		$l=Bug::find($b->id);
+		$language=explode(',', $language);
+
+		
+		
+		foreach ($language as  $lg) {
+			$l->llangs()->attach($lg);
+			$l->save();
+		}
+
+		return 1;
 	}
 
 	/**
@@ -56,7 +89,18 @@ class BugsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+
+		$bug=Bug::find($id);
+		$languages=Llang::all();
+		return View::make(
+			'bugs.edit',
+			compact(
+				'id',
+				'bug',
+				'languages'
+				)
+			)
+		;
 	}
 
 	/**
@@ -68,7 +112,24 @@ class BugsController extends \BaseController {
 	 */
 	public function update($id)
 	{
+
+		$description=Input::get('description');
+		$language=Input::get('language');
+		$solution=Input::get('solution');
 		//
+		$b=Bug::find($id);
+		$b->llangs()->detach();
+		$b->description=$description;
+		$b->solution=$solution;
+		$b->save();
+		//
+		$language=explode(',',$language);
+
+		foreach ($language as  $lg) {
+			$b->llangs()->attach($lg);
+			$b->save();
+		}
+		return Redirect::to('/');
 	}
 
 	/**

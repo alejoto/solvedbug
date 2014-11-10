@@ -1,1 +1,1 @@
-C:\Users\by.me\Desktop\projects\github\solvedbug\app/views/bugs/index.blade.php
+bugs index

@@ -1,9 +1,9 @@
 <?php
 
-Route::get('/',function(){
-	$bugs=Bug::all();
-	return View::make('buglist',compact('bugs'));
-});
+Route::get('/','BugsController@buglist');
+
+Route::resource('lang','LangsController');
+Route::resource('bug','BugsController');
 
 
 Route::get('/help', function()
