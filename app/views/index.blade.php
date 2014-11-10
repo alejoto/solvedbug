@@ -36,8 +36,8 @@
 			Bootstrap 3.2.0 CSS library
 		</li>
 		<li>
-			Brackets instead of Curly brackets in order to allow angular js usage. Next text is an example: "<i class="text-info">[[$test]]</i>" (php variable set in routes.php). Brackets were set inside the app/start/global.php file with 
-			<code>Blade::setContentTags('[[', ']]'); </code> and <code>Blade::setEscapedContentTags('[[[', ']]]');</code> static methods.
+			Brackets instead of Curly brackets in order to allow angular js usage. Next text is an example: "<i class="text-info"> spam		[[$test]]</i>" (php variable set in routes.php). Brackets were set inside the app/start/global.php file with 
+			<code>Blade::setContentTags('[<spam>[</spam>', '<spam>]</spam>]'); </code> and <code>Blade::setEscapedContentTags('[<spam>[</spam>[', ']<spam>]</spam>]');</code> static methods.
 		</li>
 		[[--- this text should not be shown in the view as has been scaped---]]
 		<li>
