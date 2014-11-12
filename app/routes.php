@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/','BugsController@buglist');
+Route::get('/del','BugsController@deleted');
+Route::post('/del/{restore}','BugsController@restore');
 
 Route::resource('lang','LangsController');
 Route::resource('bug','BugsController');

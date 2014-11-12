@@ -26,6 +26,18 @@ class BugsController extends \BaseController {
 		;
 	}
 
+	public function deleted () {
+		$bugs=Bug::onlyTrashed()->get();
+		return View::make(
+			'softdeleted',
+			compact(
+				'bugs'/*,
+				'languages'*/
+				)
+			)
+		;
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /bugs/create
@@ -52,14 +64,11 @@ class BugsController extends \BaseController {
 		$b=new Bug;
 		$b->description=$description;
 		$b->solution=$solution;
-		//$b->llangs->attach($language);
 		$b->save();
 
 		$l=Bug::find($b->id);
 		$language=explode(',', $language);
 
-		
-		
 		foreach ($language as  $lg) {
 			$l->llangs()->attach($lg);
 			$l->save();
@@ -90,7 +99,7 @@ class BugsController extends \BaseController {
 	public function edit($id)
 	{
 
-		$bug=Bug::find($id);
+		$bug=Bug::whereId($id)->withTrashed()->first();
 		$languages=Llang::all();
 		return View::make(
 			'bugs.edit',
@@ -142,6 +151,11 @@ class BugsController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function restore ($id) {
+		$bug=Bug::whereId($id)->withTrashed()->first()->restore();
+		return Redirect::to('/del');
 	}
 
 }

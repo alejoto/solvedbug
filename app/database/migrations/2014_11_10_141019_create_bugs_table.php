@@ -19,6 +19,7 @@ class CreateBugsTable extends Migration {
 			$table->text('solution');
 			$table->date('catchdate');
 			$table->integer('caught_by');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

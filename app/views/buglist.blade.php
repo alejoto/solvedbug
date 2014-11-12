@@ -2,7 +2,16 @@
 @section('main')
 <div class="container">
 	<h1>Bug log table</h1>
-	<a href="" id='show_new_bug_form'>Register a new bug</a>
+	<div class="row">
+		<div class="col-sm-4">
+			<a href="" id='show_new_bug_form'>Register a new bug</a>
+		</div>
+		<div class="col-sm-4">
+			<a href="[[URL::to('/del')]]" id=''>Trashcan</a>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
+	
 	<div id="new_bug_form">
 		<div class="row">
 			<div class=""></div>
@@ -122,17 +131,13 @@ $(function(){
 		} else {
 			$.post(
 				base+'/bug',
-				{
-					description:description
-					,language:language
-					,solution:solution
-				},
+				{description:description,language:language,solution:solution},
 				function(d){
 					if (d==1) {
-						
+						location.reload();
 					}
 				}
-				).ajaxSuccess(function(){location.reload();});
+				)
 			;
 		}
 			
